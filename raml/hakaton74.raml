@@ -1,0 +1,109 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/ee1d6e61-4b8e-465d-9483-5ac58347b914/ # 
+#55-я параллель
+title: hakaton74
+version: v1
+mediaType: application/json
+
+types:
+  attribute:
+    type: string
+    description: Атрибут Портрета пользователя
+
+  category:
+    type: object
+    description: Категория госуслуг
+    properties:
+      id: integer
+      name: string
+
+  service:
+    type: object
+    description: Государственная услуга
+    properties:
+      id: string
+      name: string
+      category: integer
+
+  serviceItem:
+    type: service
+    properties:
+      attributes: attribute[]
+
+traits:
+  baseRequest:
+    responses:
+      200:
+        description: | 
+          ОК - Запрос выполнен успешно.
+      400:
+        description: | 
+          Bad request - Структура запроса некорректна. Дополнительная информация
+          включается в тело ответа в поле errors.
+        body:
+          example: !include examples/common-responseWithErrors.json
+      404:
+        description: | 
+          Not found - Ресурс не найден.
+      500:
+        description: | 
+          Internal server error - При обработке запроса возникла ошибка. Дополнительная информация
+          включается в тело ответа в поле errors.
+        body:
+          example: !include examples/common-responseWithErrors.json
+
+/categories:
+  get:
+    description: Получить список категорий услуг
+    is: [baseRequest]
+    responses:
+      '200':
+        body:
+          type: category[]
+          example: !include examples/categories.json
+/attributes:
+  get:
+    description: Получить список всех атрибутов Портрета пользователя
+    is: [baseRequest]
+    responses:
+      '200':
+        body:
+          type: attribute[]
+          example: !include examples/attributes.json
+/services:
+  get:
+    description: Получить перечень Государственных услуг
+    is: [baseRequest]
+    responses:
+      '200':
+        body:
+          type: service[]
+          example: !include examples/services.json
+  put:
+    description: Добавить новую услугу
+    body:
+      type: service
+      example:
+        id: "7400000000178208002"
+        name: "Название новой услуги"
+        category: 5
+    is: [baseRequest]
+  /{id}:
+    uriParameters:
+      id:
+        type: string
+        required: true
+    get:
+      description: Получить сведения о Государственной услуге
+      is: [baseRequest]
+      responses:
+        '200':
+          body:
+            type: serviceItem
+            example:
+              id: "7400000010000183353"
+              name: "Ежемесячная денежная выплата отдельным категориям ветеранов, жертвам политических репрессий и ветеранам труда Челябинской области"
+              category: 1
+              attributes: [ "Возраст", "Группа инвалидности"]
+                
+                
