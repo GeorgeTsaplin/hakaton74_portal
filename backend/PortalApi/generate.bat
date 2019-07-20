@@ -1,0 +1,1 @@
+..\tools\ramlgen\ramlgen.exe server -w -a -s "..\..\raml\hakaton74.raml" -n "Latitude55.Api" -d "."
