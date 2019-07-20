@@ -30,6 +30,13 @@ types:
     properties:
       attributes: attribute[]
 
+  statistics:
+    type: object
+    description: Элемент статистики. Например { <категория услуги>, <amount> } или { <услуга>, <amount> }
+    properties:
+      caption: string
+      amount: integer
+
 traits:
   baseRequest:
     responses:
@@ -105,5 +112,56 @@ traits:
               name: "Ежемесячная денежная выплата отдельным категориям ветеранов, жертвам политических репрессий и ветеранам труда Челябинской области"
               category: 1
               attributes: [ "Возраст", "Группа инвалидности"]
-                
+/prediction:
+  /byCategories:
+    get:
+      description: Получение статистики с группировкой по Категориям услуг
+      is: [baseRequest]
+      responses:
+        '200':
+          body:
+            type: statistics[]
+            example:
+              [
+                {
+                  "caption": "Социальное обеспечение",
+                  "amount": 12654
+                },
+                {
+                  "caption": "Имущественные отношения",
+                  "amount": 16648
+                },
+                {
+                  "caption": "Производство и торговля",
+                  "amount": 9876
+                },
+              ]
+    /{category}:
+      uriParameters:
+        category:
+          type: integer
+          description: ID Категории услуг
+          default: 1
+      get:
+        description: Получение статистики с группировкой по Услугам указанной Категории
+        is: [baseRequest]
+        responses:
+          '200':
+            body:
+              type: statistics[]
+              example:
+                [
+                  {
+                    "caption": "Информирование о положении на рынке труда в Челябинской области",
+                    "amount": 8456
+                  },
+                  {
+                    "caption": "Содействие гражданам в поиске подходящей работы, а работодателям - в подборе необходимых работников",
+                    "amount": 2154
+                  },
+                  {
+                    "caption": "Организация проведения оплачиваемых общественных работ",
+                    "amount": 2044
+                  },
+                ]                
                 
