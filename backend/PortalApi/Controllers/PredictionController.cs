@@ -33,7 +33,7 @@ namespace Latitude55.Api
 		/// <returns>Statistics[]</returns>
         [HttpGet]
         [Route("byCategories/{category}")]
-        public virtual async Task<IActionResult> GetByCategoryBase([FromRoute] int category)
+        public virtual async Task<IActionResult> GetByCategoryBase([FromUri] int category)
         {
             // Do not modify this code
             return await ((IPredictionController)this).GetByCategory(category);

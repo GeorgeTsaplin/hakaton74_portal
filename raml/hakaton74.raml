@@ -16,6 +16,9 @@ types:
     properties:
       id: integer
       name: string
+      color:
+        type: string
+        pattern: "^#[0-9A-F]{6}$"
 
   service:
     type: object

@@ -20,6 +20,10 @@ namespace Latitude55.Api.Models
         [Required]
 		[JsonProperty("name")]
         public string Name { get; set; }
+
+        [Required]
+		[JsonProperty("color")]
+        public string Color { get; set; }
     } // end class
 
 } // end Models namespace
