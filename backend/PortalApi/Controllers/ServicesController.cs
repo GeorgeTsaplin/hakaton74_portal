@@ -45,7 +45,7 @@ namespace Latitude55.Api
 		/// <returns>ServiceItem</returns>
         [HttpGet]
         [Route("{id}")]
-        public virtual async Task<IActionResult> GetByIdBase([FromRoute] string id)
+        public virtual async Task<IActionResult> GetByIdBase([FromUri] string id)
         {
             // Do not modify this code
             return await ((IServicesController)this).GetById(id);
