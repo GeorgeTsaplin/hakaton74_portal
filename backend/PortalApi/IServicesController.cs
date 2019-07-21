@@ -14,5 +14,7 @@ namespace Latitude55.Api
         Task<IActionResult> Get();
         Task<IActionResult> Put(Models.Service service);
         Task<IActionResult> GetById([FromUri] string id);
+        Task<IActionResult> Post(Models.ServiceItemSettings serviceitemsettings,[FromUri] string id);
+        Task<IActionResult> PostSearches(Models.ServiceFilter servicefilter);
     }
 }

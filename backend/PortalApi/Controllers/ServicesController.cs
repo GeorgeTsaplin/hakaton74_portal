@@ -50,5 +50,32 @@ namespace Latitude55.Api
             // Do not modify this code
             return await ((IServicesController)this).GetById(id);
         }
+
+        /// <summary>
+		/// Настроить профиль Услуги - /{id}
+		/// </summary>
+		/// <param name="serviceitemsettings"></param>
+		/// <param name="id"></param>
+		/// <returns>ServiceItem</returns>
+        [HttpPost]
+        [Route("{id}")]
+        public virtual async Task<IActionResult> PostBase([FromUri] string id, [FromBody]Models.ServiceItemSettings serviceitemsettings)
+        {
+            // Do not modify this code
+            return await ((IServicesController)this).Post(serviceitemsettings,id);
+        }
+
+        /// <summary>
+		/// Поиск Услуг по фильтру - /searches
+		/// </summary>
+		/// <param name="servicefilter"></param>
+		/// <returns>Service[]</returns>
+        [HttpPost]
+        [Route("searches")]
+        public virtual async Task<IActionResult> PostSearchesBase([FromBody]Models.ServiceFilter servicefilter)
+        {
+            // Do not modify this code
+            return await ((IServicesController)this).PostSearches(servicefilter);
+        }
     }
 }

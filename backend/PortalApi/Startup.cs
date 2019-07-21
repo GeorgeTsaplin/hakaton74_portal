@@ -25,6 +25,15 @@ namespace PortalApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                     builder => builder.AllowAnyOrigin()
+                         .AllowAnyMethod()
+                         .AllowAnyHeader()
+                         .AllowCredentials());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +43,8 @@ namespace PortalApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
         }

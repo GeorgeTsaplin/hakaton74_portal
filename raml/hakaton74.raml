@@ -32,6 +32,17 @@ types:
     type: service
     properties:
       attributes: attribute[]
+  
+  serviceItemSettings:
+    type: object
+    properties:
+      attributes: attribute[]
+
+  serviceFilter:
+    type: object
+    properties:
+      categoryId?: integer
+      isConfigured?: boolean
 
   statistics:
     type: object
@@ -115,6 +126,37 @@ traits:
               name: "Ежемесячная денежная выплата отдельным категориям ветеранов, жертвам политических репрессий и ветеранам труда Челябинской области"
               category: 1
               attributes: [ "Возраст", "Группа инвалидности"]
+    post:
+      description: Настроить профиль Услуги
+      body:
+        type: serviceItemSettings
+        example:
+          attributes: [ "Возраст", "Группа инвалидности", "Город" ]
+      is: [baseRequest]
+      responses:
+        '200':
+          body:
+            type: serviceItem
+            example:
+              id: "7400000010000183353"
+              name: "Ежемесячная денежная выплата отдельным категориям ветеранов, жертвам политических репрессий и ветеранам труда Челябинской области"
+              category: 1
+              attributes: [ "Возраст", "Группа инвалидности", "Город" ]
+  /searches:
+    post:
+      description: Поиск Услуг по фильтру
+      body:
+        type: serviceFilter
+        example:
+          categoryId: 5
+          isConfigured: false
+      is: [baseRequest]
+      responses:
+        '200':
+          body:
+            type: service[]
+            example: !include examples/services.json
+
 /prediction:
   /byCategories:
     get:
