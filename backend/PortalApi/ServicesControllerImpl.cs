@@ -55,7 +55,7 @@ namespace Latitude55.Api
             // TODO g.tsaplin: must be .Single()
             var item = (await this.repo.GetAll()).First(x => x.Id == id);
 
-            item.Attributes = serviceitemsettings?.Attributes;
+            item.Attributes = serviceitemsettings?.Attributes.OrderBy(x => x.Value).ToArray();
 
             await this.repo.Save(item);
 
