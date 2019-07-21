@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Latitude55.Api.Models;
 using Latitude55.DAL;
@@ -20,7 +21,7 @@ namespace Latitude55.Api
         /// </summary>
         /// <returns>Service[]</returns>
         public async Task<IActionResult> Get()
-            => Ok(await this.repo.GetAll());
+            => Ok((await this.repo.GetAll()).OrderBy(x => x.Name));
 
 		/// <summary>
 		/// Добавить новую услугу - /services

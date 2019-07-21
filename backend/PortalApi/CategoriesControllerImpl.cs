@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Latitude55.Api.Models;
 using Latitude55.DAL;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,6 @@ namespace Latitude55.Api
         /// </summary>
         /// <returns>Category[]</returns>
         public async Task<IActionResult> Get()
-            => Ok(await this.repo.GetAll());
+            => Ok((await this.repo.GetAll()).OrderBy(x => x.Name));
     }
 }
