@@ -1,0 +1,46 @@
+#categories
+	border-right 2px solid #222
+	padding-left 30px
+
+	display flex
+	flex-direction column
+
+	.header
+		font-weight bold
+		font-size 18px
+		line-height 22px
+		padding-top 10px
+
+		.blue
+			color #0765af
+
+		.red
+			color #ed3f57
+
+	.categories
+		list-style none
+		font-weight lighter
+
+		li
+			padding-left 20px
+			margin-top 13px
+			cursor pointer
+
+			&::before
+				content ''
+				display: inline-block
+				position relative
+				left -18px
+				top 1px
+				width 10px
+				height 10px
+
+				border 2px solid var(--color)
+				border-radius 100%
+				box-sizing border-box
+
+			&.active
+				color var(--color)
+
+				&::before
+					background-color var(--color)

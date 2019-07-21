@@ -1,0 +1,95 @@
+#header
+	margin-bottom 19px
+
+	#logo
+		font-weight bold
+		font-size 24px
+		line-height 63px
+		padding-left 25px
+
+		height 60px
+
+		img
+			max-width 100%
+			max-height 100%
+			height auto
+
+	&::after
+		content ''
+		position absolute
+		width calc(100% - 40px)
+		height 0
+		left 20px
+		top 63px
+
+		border-bottom 2px solid #222222
+
+	#search-main
+		padding-left 20px
+
+		.input-group
+			display flex
+			justify-content space-between
+			width 100%
+			max-width 600px
+
+			border 2px solid #222222
+			box-sizing border-box
+
+			margin-top 12px
+
+			input
+				width 100%
+
+				font-size 14px
+				line-height 17px
+				padding 9px 12px
+				border none
+
+			.search
+				height 35px
+				cursor pointer
+
+				.search-image-wrapper
+					height 18px
+					margin-top 8px
+					border-left 2px solid #222222
+
+					.icon
+						width 18px
+						height 18px
+						margin 0 20px
+
+						background url(../../assets/search.png)
+						background-size 18px 18px
+
+	#user
+		display flex
+		justify-content flex-end
+		padding-right 35px
+		cursor pointer
+
+		.avatar
+			width 37px
+			height 37px
+			margin-top 12px
+
+			border-radius 100%
+			border 2px solid #222222
+
+			img
+				width 100%
+
+		.name
+			font-weight lighter
+			line-height 60px
+			margin-left 15px
+			margin-right 10px
+
+		.settings
+			.cog
+				background url(../../assets/cog.png)
+				background-size 18px 18px
+				width 18px
+				height 18px
+				margin-top 22px

@@ -1,0 +1,70 @@
+#donut-graph
+	display flex
+	justify-content space-between
+	margin-bottom 35px
+
+	#donut
+		min-width 350px
+		height 350px
+
+	#category-cards
+		width 65%
+		margin 0 auto
+		display flex
+		justify-content space-between
+		flex-wrap wrap
+
+		.card
+			position relative
+			width 23%
+			padding-left 20px
+			padding-right 15px
+
+			&::before
+				content ''
+				display: inline-block
+				position relative
+				left -18px
+				top 18px
+				width 10px
+				height 10px
+
+				border 2px solid var(--color)
+				background-color var(--color)
+				border-radius 100%
+				box-sizing border-box
+
+				transition box-shadow .2s linear
+
+			//&.highlight
+			//	background-color rgba(red(var(--color)), green(var(--color)), blue(var(--color)), .1)
+
+
+			&.highlight
+				cursor pointer
+
+				&:after
+					content ''
+					position absolute
+					display block
+					width 115%
+					height 90%
+					top 6px
+					left -15px
+					background-color var(--color)
+					opacity .1
+					z-index -1
+
+			.name
+				cursor pointer
+
+			.stats
+				display flex
+				justify-content space-between
+				margin-top 3px
+
+				.percent
+					color rgba(34, 34, 34, 0.5)
+
+				.count
+					color var(--color)
