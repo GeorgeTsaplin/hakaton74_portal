@@ -9,11 +9,11 @@ namespace Latitude55.Api
 {
     public partial class ServicesController : IServicesController
     {
-        private readonly RepositoryJson<Service> repo;
+        private readonly ServicesRepository repo;
 
         public ServicesController()
         {
-            this.repo = new DAL.RepositoryJson<Service>(@".\Data\services.json");
+            this.repo = new DAL.ServicesRepository(@".\Data\services.json");
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Latitude55.Api
         /// </summary>
         /// <returns>Service[]</returns>
         public async Task<IActionResult> Get()
-            => Ok((await this.repo.GetAll()).OrderBy(x => x.Name));
+            => Ok((await this.repo.GetAll()).Cast<Service>().OrderBy(x => x.Name));
 
 		/// <summary>
 		/// Добавить новую услугу - /services
@@ -34,18 +34,32 @@ namespace Latitude55.Api
 			return Ok();
         }
 
-		/// <summary>
-		/// Получить сведения о Государственной услуге - /{id}
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns>ServiceItem</returns>
+        /// <summary>
+        /// Получить сведения о Государственной услуге - /{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ServiceItem</returns>
         public async Task<IActionResult> GetById([FromUri] string id)
-        {
-            // TODO: implement GetById - route: services/{id}
-			// var result = new ServiceItem();
-			// return Ok(result);
-			return Ok();
-        }
+            => Ok((await this.repo.GetAll()).Where(x => x.Id == id));
 
+        public async Task<IActionResult> PostSearches(ServiceFilter servicefilter)
+            => Ok((await this.repo.GetAll())
+                .Where(x => (servicefilter.CategoryId == null || x.Category == servicefilter.CategoryId)
+                    && (servicefilter.IsConfigured == null
+                        || (servicefilter.IsConfigured.Value && x.Attributes?.Any() == true)
+                        || (!servicefilter.IsConfigured.Value && !x.Attributes?.Any() != true)))
+                .OrderBy(x => x.Name));
+
+        public async Task<IActionResult> Post(ServiceItemSettings serviceitemsettings, [FromUri] string id)
+        {
+            // TODO g.tsaplin: must be .Single()
+            var item = (await this.repo.GetAll()).First(x => x.Id == id);
+
+            item.Attributes = serviceitemsettings?.Attributes;
+
+            await this.repo.Save(item);
+
+            return Ok(item);
+        }
     }
 }
